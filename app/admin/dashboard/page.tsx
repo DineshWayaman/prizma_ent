@@ -86,7 +86,7 @@ export default function Dashboard() {
       } else {
         showNotification('Failed to save event', 'error');
       }
-    } catch (error) {
+    } catch {
       showNotification('Error saving event', 'error');
     }
   };
@@ -113,7 +113,7 @@ export default function Dashboard() {
       } else {
         showNotification('Failed to save testimonial', 'error');
       }
-    } catch (error) {
+    } catch {
       showNotification('Error saving testimonial', 'error');
     }
   };
@@ -140,7 +140,7 @@ export default function Dashboard() {
       } else {
         showNotification('Failed to save video', 'error');
       }
-    } catch (error) {
+    } catch {
       showNotification('Error saving video', 'error');
     }
   };
@@ -163,7 +163,7 @@ export default function Dashboard() {
       } else {
         showNotification(`Failed to delete ${type}`, 'error');
       }
-    } catch (error) {
+    } catch {
       showNotification(`Error deleting ${type}`, 'error');
     }
   };
@@ -172,20 +172,21 @@ export default function Dashboard() {
     if (type === 'event') {
       const item = events.find(e => e.id === id);
       if (item) {
-        const { id: _, ...eventData } = item;
-        setNewEvent(eventData);
+        // Spread all properties except id
+        const { venue, location, date, ticketLink } = item;
+        setNewEvent({ venue, location, date, ticketLink });
       }
     } else if (type === 'testimonial') {
       const item = testimonials.find(t => t.id === id);
       if (item) {
-        const { id: _, ...testimonialData } = item;
-        setNewTestimonial(testimonialData);
+        const { text, author } = item;
+        setNewTestimonial({ text, author });
       }
     } else {
       const item = videos.find(v => v.id === id);
       if (item) {
-        const { id: _, ...videoData } = item;
-        setNewVideo(videoData);
+        const { title, videoId, description } = item;
+        setNewVideo({ title, videoId, description });
       }
     }
     setEditingItem({ id, type });
@@ -228,7 +229,7 @@ export default function Dashboard() {
       } else {
         showNotification(`Failed to update ${type}`, 'error');
       }
-    } catch (error) {
+    } catch {
       showNotification(`Error updating ${type}`, 'error');
     }
   };

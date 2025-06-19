@@ -18,6 +18,10 @@ const pageMetadata = {
   ogImage: 'https://prizmalive.com/band-hero.png'
 };
 
+interface FormError {
+  message?: string;
+}
+
 export default function Home() {
   const contactRef = useRef<HTMLElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -58,10 +62,11 @@ export default function Home() {
       } else {
         throw new Error(result.message || 'Failed to send message');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error:', error);
+      const formError = error as FormError;
       toast.error(
-        error?.message || 'Error sending message. Please try again.',
+        formError?.message || 'Error sending message. Please try again.',
         { id: loadingToast }
       );
     } finally {
@@ -104,6 +109,11 @@ export default function Home() {
     }))
   };
 
+  const handleNavigation = (section: string) => {
+    const element = document.getElementById(section);
+    element?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-[#0a0a0a] overflow-x-hidden">
       <Head>
@@ -129,7 +139,7 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </Head>
-      <Navbar />
+      <Navbar onNavClick={handleNavigation} />
       <MusicScene />
       {/* Hero Section */}
       <section id="hero" className="relative w-full h-auto aspect-[16/9] md:aspect-[21/9] mt-16">

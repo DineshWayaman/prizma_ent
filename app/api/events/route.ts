@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     await fs.writeFile(filePath, JSON.stringify(jsonData, null, 2));
     
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ success: false, error: 'Failed to save event' }, { status: 500 });
   }
 }

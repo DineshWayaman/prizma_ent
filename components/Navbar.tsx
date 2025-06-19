@@ -8,7 +8,7 @@ interface NavbarProps {
   onNavClick?: (section: string) => void;
 }
 
-export default function Navbar({ onNavClick }: NavbarProps) {
+const Navbar = ({ onNavClick }: NavbarProps) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -47,6 +47,7 @@ export default function Navbar({ onNavClick }: NavbarProps) {
         element?.scrollIntoView({ behavior: 'smooth' })
       }
     }
+    onNavClick?.(item.name); // Call the onNavClick prop with the section name
   }
 
   const handleLogoClick = () => {
@@ -123,3 +124,5 @@ export default function Navbar({ onNavClick }: NavbarProps) {
     </nav>
   )
 }
+
+export default Navbar

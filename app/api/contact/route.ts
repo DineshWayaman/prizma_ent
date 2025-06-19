@@ -1,6 +1,14 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+interface ContactFormData {
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+}
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -9,7 +17,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const adminEmailTemplate = (data: any) => `
+const adminEmailTemplate = (data: ContactFormData) => `
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +66,7 @@ const adminEmailTemplate = (data: any) => `
 </html>
 `;
 
-const userEmailTemplate = (data: any) => `
+const userEmailTemplate = (data: ContactFormData) => `
 <!DOCTYPE html>
 <html>
 <head>

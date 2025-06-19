@@ -5,25 +5,31 @@ import * as THREE from 'three'
 
 function Rings() {
   const ringsRef = useRef<THREE.Group>(null)
-  const ringRefs = Array(5).fill(0).map(() => useRef<THREE.Mesh>(null))
+  // Create a single ref to hold all mesh references
+  const ringRefs = useRef<(THREE.Mesh | null)[]>([])
+  
+  // Initialize the array if empty
+  if (ringRefs.current.length === 0) {
+    ringRefs.current = Array(5).fill(null)
+  }
 
   useFrame((state) => {
     if (!ringsRef.current) return
     ringsRef.current.rotation.z += 0.001
     
-    ringRefs.forEach((ref, i) => {
-      if (!ref.current) return
-      ref.current.rotation.z = state.clock.getElapsedTime() * (0.2 - i * 0.05)
-      ref.current.scale.x = ref.current.scale.y = 1 + Math.sin(state.clock.getElapsedTime() * 0.5) * 0.2
+    ringRefs.current.forEach((mesh, i) => {
+      if (!mesh) return
+      mesh.rotation.z = state.clock.getElapsedTime() * (0.2 - i * 0.05)
+      mesh.scale.x = mesh.scale.y = 1 + Math.sin(state.clock.getElapsedTime() * 0.5) * 0.2
     })
   })
 
   return (
     <group ref={ringsRef}>
-      {ringRefs.map((ref, i) => (
+      {Array(5).fill(0).map((_, i) => (
         <mesh
           key={i}
-          ref={ref}
+          ref={el => ringRefs.current[i] = el}
           position={[0, 0, -i * 2]}
         >
           <ringGeometry args={[3 + i * 0.5, 3.2 + i * 0.5, 128]} />
