@@ -10,7 +10,7 @@ export default function AdminLogin() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     // Sample credentials - in production, use proper authentication
-    if (credentials.username === 'admin' && credentials.password === 'admin123') {
+    if (credentials.username === 'prizma' && credentials.password === 'Ty54Fwsc#4560@3') {
       localStorage.setItem('adminAuth', 'true');
       router.push('/admin/dashboard');
     } else {
