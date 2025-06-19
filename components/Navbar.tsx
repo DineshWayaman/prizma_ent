@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 interface NavbarProps {
   onNavClick?: (section: string) => void;
@@ -53,14 +54,20 @@ export default function Navbar({ onNavClick }: NavbarProps) {
   }
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/80' : 'bg-transparent'} backdrop-blur-sm`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-black/80' : 'bg-transparent'} backdrop-blur-sm`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <button 
             onClick={handleLogoClick}
-            className="text-[#F9B104] text-2xl font-bold hover:text-amber-500 transition-colors"
+            className="relative w-64 h-24" // Adjusted size for logo container
           >
-            PRIZMA
+            <Image
+              src="/logo.png"
+              alt="Prizma Entertainment"
+              fill
+              className="object-contain"
+              priority
+            />
           </button>
 
           {/* Desktop Navigation */}
@@ -69,7 +76,7 @@ export default function Navbar({ onNavClick }: NavbarProps) {
               <button
                 key={item.name}
                 onClick={() => handleNavClick(item)}
-                className="text-white hover:text-[#F9B104] transition-colors"
+                className="text-white hover:text-[#F9B104] transition-colors text-sm font-medium tracking-wide"
               >
                 {item.name}
               </button>

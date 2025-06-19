@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://prizmalive.com/sitemap.xml

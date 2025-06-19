@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  web:
+    build: ./prizma
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - EMAIL_USER=prizmaliveband@gmail.com
+      - EMAIL_PASS=snmdhoeejraecsak
+    restart: always
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro

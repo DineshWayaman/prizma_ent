@@ -43,16 +43,23 @@ export default function YouTube() {
       </div>
 
       {/* Social Links Footer */}
-      <footer className="py-12 bg-black/30 text-white">
-        <div className="max-w-4xl mx-auto px-4 flex justify-center gap-8">
-          {['Spotify', 'Instagram', 'YouTube', 'Twitter'].map((platform) => (
+      <footer className="py-12 bg-black/30 text-white relative z-50">
+        <div className="max-w-4xl mx-auto px-4 flex flex-wrap justify-center gap-6 sm:gap-8">
+          {[
+            { name: 'TikTok', url: 'https://www.tiktok.com/@prizmasl' },
+            { name: 'Instagram', url: 'https://www.instagram.com/prizmasl/' },
+            { name: 'Facebook', url: 'https://web.facebook.com/Prizmasl' },
+            { name: 'YouTube', url: 'https://www.youtube.com/@prizmasl' },
+          ].map((platform) => (
             <motion.a
-              key={platform}
-              href="#"
+              key={platform.name}
+              href={platform.url}
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ y: -5 }}
               className="hover:text-[#F9B104] transition-colors"
             >
-              {platform}
+              {platform.name}
             </motion.a>
           ))}
         </div>
