@@ -31,23 +31,32 @@ const Navbar = ({ onNavClick }: NavbarProps) => {
     { name: 'Contact', id: 'contact' },
   ]
 
-  const handleNavClick = (item: { name: string, id?: string, href?: string }) => {
-    setIsOpen(false)
+  const handleNavClick = async (item: { name: string, id?: string, href?: string }) => {
+    setIsOpen(false) // Close mobile menu first
+    
     if (item.name === 'Home' && window.location.pathname !== '/') {
-      router.push('/')
+      await router.push('/')
       return
     }
+    
     if (item.href) {
-      router.push(item.href)
-    } else if (item.id) {
-      if (window.location.pathname !== '/') {
-        router.push(`/#${item.id}`)
-      } else {
-        const element = document.getElementById(item.id)
-        element?.scrollIntoView({ behavior: 'smooth' })
-      }
+      await router.push(item.href)
+      return
     }
-    onNavClick?.(item.name); // Call the onNavClick prop with the section name
+    
+    if (item.id) {
+      if (window.location.pathname !== '/') {
+        await router.push(`/#${item.id}`)
+        return
+      }
+      
+      // Add setTimeout to ensure the mobile menu is closed before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(item.id!)
+        element?.scrollIntoView({ behavior: 'smooth' })
+        onNavClick?.(item.name)
+      }, 100)
+    }
   }
 
   const handleLogoClick = () => {
