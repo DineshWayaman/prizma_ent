@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "venue": "The Grand Arena",
+      "location": "New York",
+      "date": "2024-03-15",
+      "ticketLink": "https://example.com/tickets/1"
+    },
+    {
+      "id": 2,
+      "venue": "Music Hall",
+      "location": "Los Angeles",
+      "date": "2024-03-20",
+      "ticketLink": "https://example.com/tickets/2"
+    },
+    {
+      "id": 3,
+      "venue": "Stadium X",
+      "location": "Stadium X",
+      "date": "2025-06-15",
+      "ticketLink": ""
+    },
+    {
+      "id": 5,
+      "venue": "Test Event 10",
+      "location": "Colombo",
+      "date": "2025-06-26",
+      "ticketLink": ""
+    }
+  ]
+}
