@@ -3,12 +3,12 @@
 set -e
 
 echo "📁 Cloning or updating your repository..."
-if [ -d "prizma" ]; then
-  cd prizma
+if [ -d "prizma_ent" ]; then
+  cd prizma_ent
   git pull
 else
   git clone https://github.com/DineshWayaman/prizma_ent.git
-  cd prizma
+  cd prizma_ent
 fi
 
 echo "🔐 Checking for .env file..."
